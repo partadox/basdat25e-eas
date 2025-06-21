@@ -1,0 +1,56 @@
+# Git files
+.git
+.gitignore
+
+# Docker files
+docker-compose*.yml
+.dockerignore
+Dockerfile*
+
+# Documentation
+README.md
+CHANGELOG.md
+TESTING.md
+*.md
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env*
+
+# Scripts
+*.sh
+
+# Database files
+database.sql
+*.sql.backup
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+cache/
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*.backup
+
+# Test files
+test.*
+*-test.*

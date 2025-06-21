@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Textarea Styling</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/exam-json.css">
+    <style>
+        body {
+            margin: 20px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Test Textarea Styling - CE Exam System</h1>
+        
+        <div class="debug-info">
+            <strong>Debug Info:</strong><br>
+            CSS Files loaded: style.css + exam-json.css<br>
+            Browser: <span id="browserInfo"></span><br>
+            Viewport: <span id="viewportInfo"></span>
+        </div>
+
+        <div class="question-answer">
+            <h4><i class="fas fa-pencil-alt"></i> Test Textarea Styling</h4>
+            
+            <h5>Textarea dengan class "answer-input":</h5>
+            <textarea class="answer-input" placeholder="Test dengan class answer-input...">Test content dengan class answer-input</textarea>
+            
+            <h5>Textarea dengan ID "answer1":</h5>
+            <textarea id="answer1" placeholder="Test dengan ID answer1...">Test content dengan ID answer1</textarea>
+            
+            <h5>Textarea dengan ID "answer2":</h5>
+            <textarea id="answer2" placeholder="Test dengan ID answer2..."></textarea>
+            
+            <div class="save-status saved">
+                <i class="fas fa-save"></i>
+                <span>Status: Tersimpan</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h3>Computed Styles Debug:</h3>
+            <div id="styleDebug" style="background: #f1f1f1; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.8rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Debug browser info
+        document.getElementById('browserInfo').textContent = navigator.userAgent.split(' ').pop();
+        document.getElementById('viewportInfo').textContent = window.innerWidth + 'x' + window.innerHeight;
+
+        // Debug computed styles
+        setTimeout(() => {
+            const textarea1 = document.getElementById('answer1');
+            const computedStyle = window.getComputedStyle(textarea1);
+            
+            const debugInfo = {
+                'display': computedStyle.display,
+                'width': computedStyle.width,
+                'height': computedStyle.height,
+                'min-height': computedStyle.minHeight,
+                'padding': computedStyle.padding,
+                'border': computedStyle.border,
+                'border-radius': computedStyle.borderRadius,
+                'background-color': computedStyle.backgroundColor,
+                'font-family': computedStyle.fontFamily.split(',')[0],
+                'font-size': computedStyle.fontSize,
+                'line-height': computedStyle.lineHeight,
+                'box-sizing': computedStyle.boxSizing
+            };
+            
+            let debugText = '';
+            for (const [key, value] of Object.entries(debugInfo)) {
+                debugText += `${key}: ${value}\n`;
+            }
+            
+            document.getElementById('styleDebug').textContent = debugText;
+        }, 100);
+
+        // Test focus
+        document.getElementById('answer1').addEventListener('focus', () => {
+            console.log('Textarea focused - checking styles...');
+        });
+    </script>
+</body>
+</html>

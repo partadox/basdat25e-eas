@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Ujian Online - Format JSON - Teknik Komputer ITS</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/exam-json.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <div class="header">
+                <div class="logos">
+                    <img src="../assets/images/Logo ITS.png" alt="Logo ITS" class="logo">
+                    <img src="../assets/images/Logo CE.png" alt="Logo CE" class="logo">
+                </div>
+                <h1>Sistem Ujian Online</h1>
+                <h2>Format JSON - Satu Soal Per Halaman</h2>
+                <h3>Departemen Teknik Komputer - ITS</h3>
+                
+                <!-- Real-time Clock -->
+                <div class="current-time-display">
+                    <i class="fas fa-clock"></i>
+                    <span id="loginCurrentTime"></span>
+                </div>
+            </div>
+
+            <div class="login-form">
+                <div class="instructions">
+                    <h4><i class="fas fa-info-circle"></i> Fitur Baru - Format JSON:</h4>
+                    <ul>
+                        <li>Setiap soal ditampilkan satu per halaman</li>
+                        <li>Jawaban tersimpan dalam format JSON</li>
+                        <li>Navigasi antar soal dengan tombol Next/Previous</li>
+                        <li>Progress bar menampilkan kemajuan ujian</li>
+                        <li>Auto-save setiap kali berpindah soal</li>
+                        <li>Debug mode untuk melihat JSON answers</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label for="nrp">
+                        <i class="fas fa-user"></i> 
+                        Nomor Registrasi Pokok (NRP)
+                    </label>
+                    <input type="text" id="nrp" placeholder="Masukkan NRP Anda (10 digit)" maxlength="10">
+                </div>
+                
+                <button id="startExam" class="btn-primary">
+                    <i class="fas fa-play"></i> Mulai Ujian JSON
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Page -->
+    <div id="examPage" class="page">
+        <div class="exam-header">
+            <div class="header-left">
+                <div class="logos">
+                    <img src="../assets/images/Logo ITS.png" alt="Logo ITS" class="logo-small">
+                    <img src="../assets/images/Logo CE.png" alt="Logo CE" class="logo-small">
+                </div>
+                <div class="exam-info">
+                    <h3>Sistem Manajemen Basis Data</h3>
+                    <div class="student-info">
+                        <span id="studentName"></span> | <span id="studentNrp"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="timer-info">
+                    <div class="time-display">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                    <div class="countdown">
+                        <span id="timeRemaining"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-info">
+                <span>Soal <span id="currentQuestionNum">1</span> dari <span id="totalQuestions">4</span></span>
+                <span id="progressPercent">25%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="exam-content">
+            <div class="question-container" id="questionContainer">
+                <!-- Question will be loaded here dynamically -->
+            </div>
+
+            <div class="answer-container">
+                <h3><i class="fas fa-pencil-alt"></i> Jawaban Soal <span id="answerQuestionNum">1</span></h3>
+                <textarea id="currentAnswer" placeholder="Tuliskan jawaban Anda untuk soal ini..."></textarea>
+                
+                <div class="answer-controls">
+                    <div class="navigation-buttons">
+                        <button id="prevBtn" class="btn-nav btn-prev" disabled>
+                            <i class="fas fa-chevron-left"></i> Sebelumnya
+                        </button>
+                        <button id="nextBtn" class="btn-nav btn-next">
+                            Selanjutnya <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <div class="auto-save-status">
+                            <i class="fas fa-save"></i>
+                            <span id="saveStatus">Tersimpan otomatis</span>
+                        </div>
+                        <button id="submitExam" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Ujian
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debug Panel -->
+            <div class="debug-panel" id="debugPanel">
+                <h4><i class="fas fa-bug"></i> Debug Mode - JSON Answers</h4>
+                <pre id="debugJson"></pre>
+                <button id="toggleDebug" class="btn-debug">Hide Debug</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Page -->
+    <div id="successPage" class="page">
+        <div class="container">
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h2>Ujian Berhasil Disubmit!</h2>
+                <p>Terima kasih telah mengikuti ujian dengan format JSON.</p>
+                <div class="submission-info">
+                    <p><strong>Waktu Submit:</strong> <span id="submitTime"></span></p>
+                    <p><strong>Total Soal Dijawab:</strong> <span id="answeredCount"></span> dari <span id="totalSubmittedQuestions"></span></p>
+                </div>
+                
+                <div class="final-json">
+                    <h4>JSON Final Answers:</h4>
+                    <pre id="finalJsonDisplay"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/exam-json.js"></script>
+</body>
+</html>

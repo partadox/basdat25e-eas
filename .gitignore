@@ -1,0 +1,64 @@
+# Environment files - NEVER commit these!
+.env
+.env.local
+.env.*.local
+.env.real
+.env.secret
+
+# Database credentials
+*.env.secret
+config/secrets.php
+
+# Logs
+*.log
+logs/
+
+# Database backups
+*.sql.backup
+backup_*.sql
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache files
+cache/
+*.cache
+
+# Build artifacts
+dist/
+build/
+
+# Docker volumes
+*_data/
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+
+# Composer (if any)
+vendor/
+composer.lock
+
+# Backup files
+*.bak
+*.backup
+
+# Test files
+test.html
+*-test.*
+
+# Cleanup script
+cleanup.sh

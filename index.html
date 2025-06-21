@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Ujian Online - Teknik Komputer ITS</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/exam-json.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+</head>
+
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <div class="header">
+                <div class="logos">
+                    <img src="assets/images/Logo ITS.png" alt="Logo ITS" class="logo">
+                    <img src="assets/images/Logo CE.png" alt="Logo CE" class="logo">
+                </div>
+                <h1>Sistem Ujian Online</h1>
+                <h2>Departemen Teknik Komputer</h2>
+                <h3>Fakultas Teknologi Elektro dan Informatika Cerdas - ITS</h3>
+
+                <!-- Real-time Clock -->
+                <div class="current-time-display">
+                    <i class="fas fa-clock"></i>
+                    <span id="loginCurrentTime"></span>
+                </div>
+            </div>
+
+            <div class="login-form">
+                <div class="instructions">
+                    <h4><i class="fas fa-info-circle"></i> Petunjuk Penggunaan:</h4>
+                    <ul>
+                        <li>Akses menggunakan Safe Exam Browser (SEB)</li>
+                        <li>Masukkan NRP Anda dengan benar (10 digit)</li>
+                        <li>Klik "Mulai Ujian" untuk memulai sesi ujian</li>
+                        <li>Waktu ujian akan dimulai setelah Anda mengkonfirmasi</li>
+                        <li>Setiap soal memiliki input jawaban terpisah</li>
+                        <li>Jawaban tersimpan otomatis setiap 30 detik di browser Anda</li>
+                        <li>Jawaban final akan dikirim ke server saat finalisasi ujian</li>
+                        <li>Pastikan koneksi internet stabil untuk finalisasi</li>
+                        <li>Ujian hanya dapat dilakukan <strong>SATU KALI</strong></li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label for="nrp">
+                        <i class="fas fa-user"></i>
+                        Nomor Registrasi Pokok (NRP)
+                    </label>
+                    <input type="text" id="nrp" placeholder="Masukkan NRP Anda (10 digit)" maxlength="10">
+                </div>
+
+                <button id="startExam" class="btn-primary">
+                    <i class="fas fa-play"></i> Mulai Ujian
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Page -->
+    <div id="examPage" class="page">
+        <div class="exam-header">
+            <div class="header-left">
+                <div class="logos">
+                    <img src="assets/images/Logo ITS.png" alt="Logo ITS" class="logo-small">
+                    <img src="assets/images/Logo CE.png" alt="Logo CE" class="logo-small">
+                </div>
+                <div class="exam-info">
+                    <h3>Sistem Manajemen Basis Data</h3>
+                    <div class="student-info">
+                        <span id="studentName"></span> | <span id="studentNrp"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="timer-info">
+                    <div class="time-display">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                    <div class="countdown">
+                        <span id="timeRemaining"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exam-content">
+            <div class="question-paper">
+                <div class="paper-header">
+                    <h2>Ujian Akhir Semester (EAS)</h2>
+                    <div class="exam-details">
+                        <table>
+                            <tr>
+                                <td><strong>Mata Kuliah</strong></td>
+                                <td>: Sistem Manajemen Basis Data</td>
+                                <td><strong>Semester</strong></td>
+                                <td>: ☐ Gasal ☑ Genap</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kode Mata Kuliah</strong></td>
+                                <td>: EC234401</td>
+                                <td><strong>Tahun Ajaran</strong></td>
+                                <td>: 2024/2025</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nama Dosen</strong></td>
+                                <td id="teacherName">: Arta Kusuma Hernanda, M.T</td>
+                                <td><strong>Jenis Evaluasi</strong></td>
+                                <td>: ☐ Kuis ☐ Tugas ☐ ETS ☑ EAS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Waktu</strong></td>
+                                <td id="examDuration">: 120 Menit</td>
+                                <td><strong>Sifat Evaluasi</strong></td>
+                                <td>: ☐ Terbuka ☑ Tertutup ☐ Lainnya</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="learning-outcomes">
+                    <h4>Capaian Pembelajaran</h4>
+                    <ul>
+                        <li><strong>CPMK-4</strong>: Mahasiswa memiliki kemampuan untuk membentuk sebuah database
+                            melalui proses normalisasi.</li>
+                        <li><strong>CPMK-5</strong>: Mahasiswa memiliki kemampuan untuk membentuk sebuah database dari
+                            diagram E-R.</li>
+                        <li><strong>CPMK-6</strong>: Mahasiswa memiliki kemampuan untuk menjelaskan aplikasi terkini
+                            dari DBMS.</li>
+                    </ul>
+                </div>
+
+                <div class="integrity-statement">
+                    <p><strong>Pernyataan Integritas:</strong></p>
+                    <blockquote>
+                        "Saya menyatakan bahwa jawaban pada ujian ini adalah benar hasil pekerjaan saya sendiri,
+                        jika pengawas ujian menemukan saya melakukan kecurangan pada ujian ini, saya siap menanggung
+                        sanksi akademik sesuai dengan peraturan ITS."
+                    </blockquote>
+                </div>
+
+                <div class="case-study">
+                    <h3><i class="fas fa-database"></i> Studi Kasus: NadaStream</h3>
+
+                    <div class="erd-section">
+                        <h4>Entity Relationship Diagram - NadaStream</h4>
+                        <div class="erd-container">
+                            <img src="assets/images/erd.png" alt="ERD NadaStream" class="erd-image">
+                        </div>
+                    </div>
+
+                    <div class="case-description">
+                        <p>
+                            Anda adalah seorang <strong>Database Administrator (DBA)</strong> di
+                            <strong>NadaStream</strong>,
+                            sebuah platform streaming musik digital yang sedang mengalami pertumbuhan pengguna yang
+                            eksplosif
+                            di seluruh Indonesia. Dengan jutaan lagu dalam katalog dan basis pengguna yang terus
+                            bertambah,
+                            infrastruktur database PostgreSQL Anda membutuhkan optimasi.
+                        </p>
+                        <p>
+                            Untuk menjawab soal-soal di bawah, Anda akan bekerja dengan skema database NadaStream yang
+                            telah
+                            didefinisikan sebelumnya (terdiri dari tabel <em>Pengguna, Artis, Album, Lagu, Log
+                                Pemutaran, dan Langganan</em>).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="questions">
+                    <div class="question">
+                        <h3>1. CPMK-4 (25%)</h3>
+                        <button class="show-erd-btn" onclick="showERDModal()">
+                            <i class="fas fa-database"></i> Show ERD
+                        </button>
+                        <p>
+                            Fitur andalan NadaStream adalah halaman <strong>"For You"</strong> yang merekomendasikan
+                            lagu berdasarkan
+                            artis yang sering didengarkan pengguna. Fitur ini mengalami penurunan performa. Analisis
+                            menunjukkan
+                            bahwa query untuk mengambil semua judul lagu (<code>Lagu.judul_lagu</code>) dari seorang
+                            artis tertentu
+                            (<code>Artis.nama_artis</code>) menjadi <em>bottleneck</em>. Query ini, pada skema yang
+                            sudah ternormalisasi,
+                            memerlukan <strong>JOIN</strong> melalui tiga tabel: <em>Artis, Album, dan Lagu</em>.
+                        </p>
+
+                        <div class="sub-question">
+                            <p><strong>a.</strong> Jelaskan secara singkat mengapa memisahkan data ke dalam tabel Artis,
+                                Album, dan Lagu
+                                (seperti pada skema kita saat ini) adalah praktik desain yang baik?</p>
+                        </div>
+
+                        <div class="sub-question">
+                            <p><strong>b.</strong> Buktikan bahwa optimasi dapat dicapai tanpa merusak struktur
+                                normalisasi.
+                                Tuliskan perintah SQL (<code>CREATE INDEX</code>) yang paling efektif untuk mempercepat
+                                query
+                                pencarian lagu berdasarkan nama artis pada skema yang sudah ada!</p>
+                        </div>
+
+                        <div class="question-answer">
+                            <h4><i class="fas fa-pencil-alt"></i> Jawaban Soal 1:</h4>
+                            <textarea id="answer1" class="answer-input"
+                                placeholder="Tuliskan jawaban Anda untuk soal 1 di sini..."></textarea>
+                            <div class="save-status" id="saveStatus1">
+                                <i class="fas fa-save"></i>
+                                <span>Belum ada jawaban</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>2. CPMK-5 (25%)</h3>
+                        <p>
+                            NadaStream akan meluncurkan fitur baru yang sangat dinantikan bernama <strong>"NadaStream
+                                Live"</strong>,
+                            yang memungkinkan pengguna membeli tiket konser eksklusif langsung dari aplikasi. Sebagai
+                            Database Designer,
+                            Anda ditugaskan untuk mengimplementasikan fondasi database untuk fitur ini, mulai dari
+                            pembuatan skema
+                            hingga memastikan proses transaksinya aman.
+                        </p>
+
+                        <p>Berikut adalah deskripsi entitas dan relasi untuk fitur "NadaStream Live":</p>
+
+                        <div class="entity-description">
+                            <ul>
+                                <li>
+                                    <strong>Entitas Konser:</strong> Menyimpan informasi dasar tentang setiap acara.
+                                    <br>– Atribut: <code>id_konser</code> (PK, auto-increment), <code>nama_konser</code>
+                                    (teks),
+                                    <code>tanggal_acara</code> (tanggal).
+                                </li>
+                                <li>
+                                    <strong>Entitas Stok Tiket:</strong> Mengelola inventaris tiket untuk setiap konser.
+                                    Setiap konser bisa memiliki beberapa kategori tiket (VIP, Reguler, dll).
+                                    <br>– Atribut: <code>id_stok</code> (PK, auto-increment), <code>id_konser</code> (FK
+                                    ke Konser),
+                                    <code>kategori_tiket</code> (teks, misal: 'VIP'), <code>harga</code> (angka),
+                                    <code>stok_tersedia</code> (angka).
+                                </li>
+                                <li>
+                                    <strong>Entitas Pembelian Tiket:</strong> Mencatat setiap transaksi pembelian yang
+                                    berhasil
+                                    dilakukan oleh pengguna.
+                                    <br>– Atribut: <code>id_pembelian</code> (PK, auto-increment),
+                                    <code>id_pengguna</code>
+                                    (FK ke Pengguna), <code>id_stok</code> (FK ke Stok Tiket), <code>jumlah</code>
+                                    (angka, default 1),
+                                    <code>total_bayar</code> (angka), <code>waktu_pembelian</code> (timestamp).
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>
+                            Berdasarkan deskripsi di atas, tuliskan perintah SQL <code>CREATE TABLE</code> yang lengkap
+                            untuk ketiga
+                            tabel tersebut (Konser, Stok Tiket, Pembelian Tiket). Pastikan Anda mendefinisikan Primary
+                            Key,
+                            Foreign Key, dan tipe data yang paling sesuai untuk setiap kolom!
+                        </p>
+
+                        <div class="question-answer">
+                            <h4><i class="fas fa-pencil-alt"></i> Jawaban Soal 2:</h4>
+                            <textarea id="answer2" class="answer-input"
+                                placeholder="Tuliskan jawaban Anda untuk soal 2 di sini..."
+                                style="width: 100% !important; min-height: 200px !important; padding: 15px !important; border: 2px solid #dee2e6 !important; border-radius: 8px !important; font-family: 'Segoe UI', sans-serif !important; font-size: 1rem !important; line-height: 1.6 !important; background: #fff !important; color: #333 !important; box-sizing: border-box !important; resize: vertical !important; display: block !important;"></textarea>
+                            <div class="save-status" id="saveStatus2">
+                                <i class="fas fa-save"></i>
+                                <span>Belum ada jawaban</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>3. CPMK-5 dan CPMK-6 (25%)</h3>
+                        <p>
+                            Sesuai soal pada Nomor 2, setelah tabel berhasil dibuat, Anda harus mengimplementasikan
+                            logika bisnis
+                            untuk proses pembelian tiket. Proses ini sangat kritis: sistem harus mengurangi stok hanya
+                            jika data
+                            pembelian berhasil dicatat. Jika salah satu langkah gagal, seluruh proses harus dibatalkan
+                            untuk
+                            mencegah inkonsistensi data.
+                        </p>
+
+                        <p>
+                            Seorang pengguna dengan <code>id_pengguna = 404</code> ingin membeli 1 tiket VIP untuk
+                            konser dengan
+                            <code>id_konser = 7</code>. Berdasarkan tabel Anda, tiket VIP untuk konser ini memiliki
+                            <code>id_stok = 15</code>.
+                        </p>
+
+                        <div class="sub-question">
+                            <p><strong>a.</strong> Jelaskan secara singkat mengapa proses yang terdiri dari beberapa
+                                langkah
+                                (misalnya, mengurangi stok DAN mencatat pembelian) ini wajib dijalankan di dalam sebuah
+                                blok transaksi ACID!</p>
+                        </div>
+
+                        <div class="sub-question">
+                            <p><strong>b.</strong> Tuliskan blok transaksi SQL (<code>BEGIN...COMMIT/ROLLBACK</code>)
+                                yang lengkap
+                                dan aman untuk menjalankan skenario pembelian tiket di atas. Blok transaksi Anda harus
+                                mencakup logika
+                                untuk mengurangi stok tersedia di tabel Stok Tiket dan menyisipkan catatan baru ke tabel
+                                Pembelian Tiket.</p>
+                        </div>
+
+                        <div class="question-answer">
+                            <h4><i class="fas fa-pencil-alt"></i> Jawaban Soal 3:</h4>
+                            <textarea id="answer3" class="answer-input"
+                                placeholder="Tuliskan jawaban Anda untuk soal 3 di sini..."
+                                style="width: 100% !important; min-height: 200px !important; padding: 15px !important; border: 2px solid #dee2e6 !important; border-radius: 8px !important; font-family: 'Segoe UI', sans-serif !important; font-size: 1rem !important; line-height: 1.6 !important; background: #fff !important; color: #333 !important; box-sizing: border-box !important; resize: vertical !important; display: block !important;"></textarea>
+                            <div class="save-status" id="saveStatus3">
+                                <i class="fas fa-save"></i>
+                                <span>Belum ada jawaban</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. CPMK-6 (25%)</h3>
+                        <button class="show-erd-btn" onclick="showERDModal()">
+                            <i class="fas fa-database"></i> Show ERD
+                        </button>
+                        <p>
+                            Tabel Log Pemutaran di database NadaStream telah tumbuh menjadi sangat besar, berisi
+                            miliaran baris
+                            data historis sejak platform diluncurkan. Data ini adalah aset yang sangat berharga, tetapi
+                            ukurannya
+                            yang masif mulai menyebabkan masalah performa serius. Anda ditugaskan untuk
+                            mengimplementasikan
+                            <strong>partisi</strong> pada tabel Log Pemutaran.
+                        </p>
+
+                        <div class="sub-question">
+                            <p><strong>a.</strong> Metode partisi apa (<em>Range, List, atau Hash</em>) yang paling
+                                tepat untuk
+                                digunakan pada tabel Log Pemutaran berdasarkan kolom <code>waktu_putar</code>? Berikan
+                                justifikasi
+                                teknis yang kuat untuk pilihan Anda.</p>
+                        </div>
+
+                        <div class="sub-question">
+                            <p><strong>b.</strong> Tuliskan perintah SQL yang diperlukan untuk membuat ulang tabel Log
+                                Pemutaran
+                                sebagai <em>partitioned table</em> menggunakan metode yang Anda pilih. Sertakan juga
+                                dalam kode Anda
+                                perintah untuk membuat dua partisi spesifik:</p>
+                            <ul>
+                                <li>Satu partisi untuk menampung data bulan Mei 2025.</li>
+                                <li>Satu partisi untuk menampung data bulan Juni 2025.</li>
+                            </ul>
+                        </div>
+
+                        <div class="question-answer">
+                            <h4><i class="fas fa-pencil-alt"></i> Jawaban Soal 4:</h4>
+                            <textarea id="answer4" class="answer-input"
+                                placeholder="Tuliskan jawaban Anda untuk soal 4 di sini..."
+                                style="width: 100% !important; min-height: 200px !important; padding: 15px !important; border: 2px solid #dee2e6 !important; border-radius: 8px !important; font-family: 'Segoe UI', sans-serif !important; font-size: 1rem !important; line-height: 1.6 !important; background: #fff !important; color: #333 !important; box-sizing: border-box !important; resize: vertical !important; display: block !important;"></textarea>
+                            <div class="save-status" id="saveStatus4">
+                                <i class="fas fa-save"></i>
+                                <span>Belum ada jawaban</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam-controls">
+                    <div class="auto-save-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Jawaban tersimpan otomatis di browser setiap 30 detik. Klik "Finalisasi" untuk mengirim ke
+                            server.</span>
+                    </div>
+                    <button id="submitExam" class="btn-submit">
+                        <i class="fas fa-flag-checkered"></i> Finalisasi Ujian
+                    </button>
+                </div>
+
+                <div class="footer-message">
+                    <p><strong>SELAMAT BEKERJA!</strong></p>
+                    <p><em>Pastikan semua jawaban telah Anda tulis dengan lengkap sebelum menekan tombol Submit.</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Page -->
+    <div id="successPage" class="page">
+        <div class="container">
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h2>Ujian Berhasil Disubmit!</h2>
+                <p>Terima kasih telah mengikuti ujian. Jawaban Anda telah tersimpan dengan aman.</p>
+                <div class="submission-info">
+                    <p><strong>Waktu Submit:</strong> <span id="submitTime"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERD Modal -->
+    <div id="erdModal" class="erd-modal">
+        <div class="erd-modal-content">
+            <div class="erd-modal-header">
+                <h3><i class="fas fa-database"></i> Entity Relationship Diagram - NadaStream</h3>
+                <button class="erd-modal-close" onclick="closeERDModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="erd-modal-image">
+                <img src="assets/images/erd.png" alt="ERD NadaStream" id="erdImage">
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+
+    <!-- Force textarea styling after page load -->
+    <script>
+        // Force apply textarea styling setelah semua CSS dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            function forceTextareaStyles() {
+                const textareas = ['answer1', 'answer2', 'answer3', 'answer4'];
+
+                textareas.forEach(id => {
+                    const textarea = document.getElementById(id);
+                    if (textarea) {
+                        // Force apply styles
+                        textarea.style.cssText = `
+                            width: 100% !important;
+                            min-height: 200px !important;
+                            max-height: 400px !important;
+                            padding: 15px !important;
+                            border: 2px solid #dee2e6 !important;
+                            border-radius: 8px !important;
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+                            font-size: 1rem !important;
+                            line-height: 1.6 !important;
+                            background: #ffffff !important;
+                            color: #333333 !important;
+                            box-sizing: border-box !important;
+                            resize: vertical !important;
+                            display: block !important;
+                            margin: 0 0 15px 0 !important;
+                            outline: none !important;
+                            transition: all 0.3s ease !important;
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                        `;
+
+                        // Add focus event
+                        textarea.addEventListener('focus', function () {
+                            this.style.borderColor = '#007bff';
+                            this.style.boxShadow = '0 0 0 3px rgba(0, 123, 255, 0.15)';
+                        });
+
+                        // Add blur event
+                        textarea.addEventListener('blur', function () {
+                            this.style.borderColor = '#dee2e6';
+                            this.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                        });
+
+                        // Add hover event
+                        textarea.addEventListener('mouseenter', function () {
+                            if (this !== document.activeElement) {
+                                this.style.borderColor = '#adb5bd';
+                            }
+                        });
+
+                        textarea.addEventListener('mouseleave', function () {
+                            if (this !== document.activeElement) {
+                                this.style.borderColor = '#dee2e6';
+                            }
+                        });
+
+                        console.log(`Styling applied to ${id}:`, textarea.style.cssText);
+                    }
+                });
+            }
+
+            // Apply styles immediately
+            forceTextareaStyles();
+
+            // Apply again after a short delay to ensure everything is loaded
+            setTimeout(forceTextareaStyles, 500);
+
+            // Apply when exam page becomes active
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.target.classList && mutation.target.classList.contains('page') && mutation.target.classList.contains('active')) {
+                        setTimeout(forceTextareaStyles, 100);
+                    }
+                });
+            });
+
+            const examPage = document.getElementById('examPage');
+            if (examPage) {
+                observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+            }
+        });
+    </script>
+
+    <!-- Immediate clock script -->
+    <script>
+        // Function to update clock immediately
+        function initializeClock() {
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('id-ID', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    timeZone: 'Asia/Jakarta'
+                });
+
+                const dateString = now.toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    timeZone: 'Asia/Jakarta'
+                });
+
+                const loginTimeElement = document.getElementById('loginCurrentTime');
+                if (loginTimeElement) {
+                    loginTimeElement.textContent = `${dateString}, ${timeString} WIB`;
+                }
+
+                const examTimeElement = document.getElementById('currentTime');
+                if (examTimeElement) {
+                    examTimeElement.textContent = timeString;
+                }
+            }
+
+            // Update immediately
+            updateClock();
+
+            // Update every second
+            setInterval(updateClock, 1000);
+        }
+
+        // Run immediately when script loads
+        initializeClock();
+
+        // Also run when DOM is ready (fallback)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeClock);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  exam-system:
+    build: .
+    container_name: ce-exam-system
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_NAME=${DB_NAME:-ce_exam_system}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASS=${DB_PASS:-}
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - TZ=Asia/Jakarta
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - exam_logs:/var/log/nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  exam_logs:
+    driver: local

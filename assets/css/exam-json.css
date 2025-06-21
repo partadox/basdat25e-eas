@@ -1,0 +1,267 @@
+/* CSS khusus untuk answer textarea - CE Exam System */
+
+/* Force override semua styling textarea */
+textarea[id^="answer"], 
+.answer-input,
+input[type="text"][id="nrp"] {
+    /* Reset browser defaults */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    /* Core styling */
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    
+    /* Typography */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    color: #333333 !important;
+    
+    /* Spacing */
+    padding: 15px !important;
+    margin: 0 0 15px 0 !important;
+    
+    /* Border & Background */
+    border: 2px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    
+    /* Effects */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+    
+    /* Behavior */
+    resize: vertical !important;
+    overflow-y: auto !important;
+    outline: none !important;
+}
+
+/* Specific untuk textarea jawaban */
+textarea[id^="answer"] {
+    min-height: 200px !important;
+    max-height: 500px !important;
+}
+
+/* Focus states */
+textarea[id^="answer"]:focus,
+.answer-input:focus,
+input[type="text"][id="nrp"]:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+/* Hover states */
+textarea[id^="answer"]:hover,
+.answer-input:hover,
+input[type="text"][id="nrp"]:hover {
+    border-color: #adb5bd !important;
+}
+
+/* Placeholder styling */
+textarea[id^="answer"]::placeholder,
+.answer-input::placeholder,
+input[type="text"][id="nrp"]::placeholder {
+    color: #6c757d !important;
+    font-style: italic !important;
+    opacity: 0.8 !important;
+}
+
+/* Individual ID selectors untuk memastikan */
+#answer1, #answer2, #answer3, #answer4 {
+    /* Force override dengan !important */
+    display: block !important;
+    width: 100% !important;
+    min-height: 200px !important;
+    max-height: 500px !important;
+    padding: 15px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    color: #333333 !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+    resize: vertical !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+    margin: 0 0 15px 0 !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+#answer1:focus, #answer2:focus, #answer3:focus, #answer4:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+#answer1:hover, #answer2:hover, #answer3:hover, #answer4:hover {
+    border-color: #adb5bd !important;
+}
+
+/* Custom scrollbar untuk textarea */
+textarea[id^="answer"]::-webkit-scrollbar,
+#answer1::-webkit-scrollbar, #answer2::-webkit-scrollbar,
+#answer3::-webkit-scrollbar, #answer4::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+textarea[id^="answer"]::-webkit-scrollbar-track,
+#answer1::-webkit-scrollbar-track, #answer2::-webkit-scrollbar-track,
+#answer3::-webkit-scrollbar-track, #answer4::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 4px !important;
+}
+
+textarea[id^="answer"]::-webkit-scrollbar-thumb,
+#answer1::-webkit-scrollbar-thumb, #answer2::-webkit-scrollbar-thumb,
+#answer3::-webkit-scrollbar-thumb, #answer4::-webkit-scrollbar-thumb {
+    background: #cbd5e0 !important;
+    border-radius: 4px !important;
+}
+
+textarea[id^="answer"]::-webkit-scrollbar-thumb:hover,
+#answer1::-webkit-scrollbar-thumb:hover, #answer2::-webkit-scrollbar-thumb:hover,
+#answer3::-webkit-scrollbar-thumb:hover, #answer4::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0 !important;
+}
+
+/* Save status styling */
+.save-status {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 0.9rem !important;
+    color: #6c757d !important;
+    margin-top: 5px !important;
+}
+
+.save-status i {
+    font-size: 0.9rem !important;
+}
+
+.save-status.saved {
+    color: #28a745 !important;
+}
+
+.save-status.saving {
+    color: #ffc107 !important;
+}
+
+.save-status.error {
+    color: #dc3545 !important;
+}
+
+.save-status.unsaved {
+    color: #fd7e14 !important;
+}
+
+/* Question answer container */
+.question-answer {
+    background: #f8f9fa !important;
+    padding: 25px !important;
+    border-radius: 10px !important;
+    margin-top: 25px !important;
+    border-left: 4px solid #007bff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+.question-answer h4 {
+    color: #007bff !important;
+    margin-bottom: 20px !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 768px) {
+    textarea[id^="answer"],
+    #answer1, #answer2, #answer3, #answer4 {
+        min-height: 150px !important;
+        padding: 12px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .question-answer {
+        padding: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    textarea[id^="answer"],
+    #answer1, #answer2, #answer3, #answer4 {
+        min-height: 120px !important;
+        padding: 10px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .question-answer {
+        padding: 15px !important;
+    }
+}
+
+/* Override any conflicting styles */
+textarea[id^="answer"],
+#answer1, #answer2, #answer3, #answer4 {
+    /* Memastikan tidak ada style yang bertentangan */
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-image: none !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    
+    /* Reset positioning */
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    
+    /* Reset z-index */
+    z-index: auto !important;
+    
+    /* Reset transforms */
+    transform: none !important;
+    
+    /* Reset opacity */
+    opacity: 1 !important;
+    
+    /* Reset visibility */
+    visibility: visible !important;
+}
+
+/* Debug helper - remove after fixing */
+textarea[id^="answer"]:before {
+    content: "" !important;
+}
+
+/* Force validation untuk browser compatibility */
+@supports (-webkit-appearance: none) {
+    textarea[id^="answer"],
+    #answer1, #answer2, #answer3, #answer4 {
+        -webkit-appearance: none !important;
+    }
+}
+
+@supports (-moz-appearance: none) {
+    textarea[id^="answer"],
+    #answer1, #answer2, #answer3, #answer4 {
+        -moz-appearance: none !important;
+    }
+}
